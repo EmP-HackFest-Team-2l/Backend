@@ -7,7 +7,9 @@ import os
 from pymongo import MongoClient
 from urllib.parse import urlparse, urljoin
 
-from models import SessionUser
+
+
+from models import User
 
 """
 Load environment variables from .env file
@@ -44,7 +46,7 @@ def load_user(user_id):
     if not user:
         return None
     
-    return SessionUser(user) 
+    return User(user) 
 
 
 """

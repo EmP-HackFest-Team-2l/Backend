@@ -1,1 +1,2 @@
-from .SessionUser import SessionUser
+from .AccountType import AccountType
+from .User import User
