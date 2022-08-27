@@ -1,4 +1,3 @@
-from operator import index
 from bson.objectid import ObjectId
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request
