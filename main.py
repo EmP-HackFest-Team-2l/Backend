@@ -11,10 +11,8 @@ api = Api(app)
 # dns.resolver.default_resolver=dns.resolver.Resolver(configure=False)
 # dns.resolver.default_resolver.nameservers=['8.8.8.8']
 
-print(os.listdir())
-print(os.listdir(".github"))
-print(os.listdir(".github/workflows"))
-print(os.listdir("endpoints"))
+with open(".env") as file:
+    print(file.read())
 
 mongo_client = MongoClient(os.environ["MONGODB_URL"], server_api=ServerApi('1'))
 db = mongo_client["EduHack"]
