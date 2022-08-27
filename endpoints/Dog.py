@@ -1,6 +1,5 @@
 from flask_restful import Resource
 
-# the weird shape is cuz escape chracters. prints fine however
 dog = r"""                             ;\ 
                             |' \ 
          _                  ; : ; 
