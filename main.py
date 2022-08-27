@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 import os
 # import dns.resolver
 from flask import Flask
@@ -11,8 +12,7 @@ api = Api(app)
 # dns.resolver.default_resolver=dns.resolver.Resolver(configure=False)
 # dns.resolver.default_resolver.nameservers=['8.8.8.8']
 
-with open(".env") as file:
-    print(file.read())
+load_dotenv()
 
 mongo_client = MongoClient(os.environ["MONGODB_URL"], server_api=ServerApi('1'))
 db = mongo_client["EduHack"]
