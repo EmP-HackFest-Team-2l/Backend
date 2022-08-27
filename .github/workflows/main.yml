@@ -15,7 +15,7 @@ jobs:
           uses: actions/checkout@v3
         
         - name: Setup fly.io command line tool
-        - uses: superfly/flyctl-actions/setup-flyctl@master
+          uses: superfly/flyctl-actions/setup-flyctl@master
 
         - name: "Deploy to fly.io"
         - run: flyctl deploy --remote-only --detach
