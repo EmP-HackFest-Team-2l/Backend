@@ -3,7 +3,7 @@ from flask_login import login_user
 from flask_restful import Resource
 from werkzeug.security import check_password_hash
 
-from main import is_safe_url, successful_response, user_credentials
+from main import is_safe_url, successful_response, users
 from models import User
 
 class Login(Resource):
@@ -15,7 +15,7 @@ class Login(Resource):
         elif not json_data["password"]:
             return abort(400, description="Password not supplied.")
 
-        user = user_credentials.find_one({"username": json_data["username"]})
+        user = users.find_one({"username": json_data["username"]})
         if not user:
             raise abort(401, description="Username or password incorrect.")
 
