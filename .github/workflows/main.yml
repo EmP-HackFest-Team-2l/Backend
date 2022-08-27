@@ -6,15 +6,15 @@ jobs:
       name: Deploy app
       runs-on: ubuntu-latest
       steps:
+        - name: Checkout repository
+          uses: actions/checkout@v3
+        
         - name: Create .env file
           uses: SpicyPizza/create-envfile@v1.3
           with: 
             envkey_MONGODB_URL: ${{ secrets.MONGODB_URL }}
             directory: "../../"
 
-        - name: Checkout repository
-          uses: actions/checkout@v3
-        
         - name: Setup fly.io command line tool
           uses: superfly/flyctl-actions/setup-flyctl@master
 
