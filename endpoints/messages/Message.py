@@ -14,9 +14,11 @@ class Message(Resource):
 
         message = messages_collection.find_one(ObjectId(id))
 
-        if not message or current_user.id != message["recipient"]:
+        if not message or str(current_user.id) != message["recipient"]:
             return abort(403, description="You do not have access to this message.")
 
+        message.pop("_id")
+        message["send_time"] = message["send_time"].isoformat()
         return message
 
     @login_required
@@ -26,7 +28,7 @@ class Message(Resource):
 
         message = messages_collection.find_one(ObjectId(id))
 
-        if not message or current_user.id != message["recipient"]:
+        if not message or str(current_user.id) != message["recipient"]:
             return abort(403, description="You do not have access to this message.")
 
         favorite = request.args.get("favorite")
@@ -38,7 +40,8 @@ class Message(Resource):
         else:
             return abort(400, description="`favorite` has an invalid value.")
             
-        res = messages_collection.update_one(id, {"favorite", favorite_val})
+        res = messages_collection.update_one({"_id": ObjectId(id)},
+                                             {"$set": {"favorite": favorite_val}})
         if not res.matched_count:
             return abort(400, description="`id` given has no corresponding message.")
 

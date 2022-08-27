@@ -4,18 +4,22 @@ from bson.objectid import ObjectId
 class Message:
     def __init__(self, message_dict):
         self.title: str = message_dict.get("title")
+        self.content: str = message_dict.get("content")
         self.read: bool = message_dict.get("read")
         self.favorite: bool = message_dict.get("favorite")
         self.tags: list[str] = message_dict.get("tags")
-        self.recipient: ObjectId  = message_dict.get("recipient")
-        self.sender: ObjectId | None = message_dict.get("sender")
-        self.send_time: datetime = message_dict.get("sendTime") 
+        self.recipient: str  = message_dict.get("recipient")
+        self.sender: str | None = message_dict.get("sender")
+        self.send_time: datetime = message_dict.get("send_time") 
     
     def validate(self, validate_send_time=False) -> str:
         if not self.title:
             return "`title` is not set."
         elif not isinstance(self.title, str):
             return "`title` is not a string."
+
+        elif self.content is not None and not isinstance(self.content, str):
+            return "`content` is not a string."
 
         elif self.read is None:
             return "`read` is not set."
@@ -37,14 +41,14 @@ class Message:
             return "`recipient` is not set."
         elif not isinstance(self.recipient, ObjectId):
             try:
-                self.recipient = ObjectId(self.recipient)
+                ObjectId(self.recipient)
             except Exception as ex:
                 print(ex)
                 return "`recipient` is not an ObjectId."
 
         elif self.sender is not None and not isinstance(self.sender, ObjectId):
             try:
-                self.recipient = ObjectId(self.sender)
+                ObjectId(self.sender)
             except:
                 return "`sender` is not an ObjectId."
 

@@ -31,7 +31,7 @@ Initialize database
 """
 mongo_client = MongoClient(os.environ["MONGODB_URL"])
 db = mongo_client["EduHack"]
-users_collection = db["UserCredentials"]
+users_collection = db["Users"]
 messages_collection = db["Messages"]
 # To increase lookup performance of the collection
 messages_collection.create_index([("recipient", 1)])

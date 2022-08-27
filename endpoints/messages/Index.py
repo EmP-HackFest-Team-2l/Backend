@@ -20,7 +20,7 @@ class Index(Resource):
         if error:
             return abort(400, description=error)
 
-        json_data["send_time"] = datetime.now()        
+        json_data["send_time"] = datetime.now().isoformat()
         messages_collection.insert_one(json_data)
         
         return successful_response
