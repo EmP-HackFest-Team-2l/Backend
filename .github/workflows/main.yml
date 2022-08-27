@@ -13,7 +13,7 @@ jobs:
           run: | 
             touch .env
             echo -e "MONGODB_URL=${{ secrets.MONGODB_URL }}" >> .env
-            cat .env
+            echo -e "API_SECRET=${{ secrets.API_SECRET }}" >> .env
 
         - name: Setup fly.io command line tool
           uses: superfly/flyctl-actions/setup-flyctl@master
