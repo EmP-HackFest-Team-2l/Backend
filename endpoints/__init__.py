@@ -1,2 +1,2 @@
-from endpoints.auth import *
-from endpoints.Dog import Dog
+from .auth import *
+from .Dog import Dog

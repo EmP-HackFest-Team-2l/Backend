@@ -1,3 +1,3 @@
-from endpoints.auth.Login import Login
-from endpoints.auth.Logout import Logout
-from endpoints.auth.Signup import Signup
+from .Login import Login
+from .Logout import Logout
+from .Signup import Signup

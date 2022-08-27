@@ -1,1 +1,1 @@
-from models.SessionUser import SessionUser
+from .SessionUser import SessionUser
