@@ -25,10 +25,12 @@ class User(UserMixin):
             return "`username` is not set."
         elif not isinstance(self.username, str):
             return "`username` is not a string."
+        
         elif not self.password:
             return "`password` is not set."
         elif not isinstance(self.password, str):
             return "`password` is not a string."
+        
         elif not self.account_type and validate_account_type:
             if self._account_type_string is None:
                 return "`account_type` is not set."

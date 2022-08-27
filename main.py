@@ -1,3 +1,4 @@
+from operator import index
 from bson.objectid import ObjectId
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request
@@ -6,7 +7,6 @@ from flask_restful import Api
 import os
 from pymongo import MongoClient
 from urllib.parse import urlparse, urljoin
-
 
 
 from models import User
@@ -31,10 +31,10 @@ Initialize database
 """
 mongo_client = MongoClient(os.environ["MONGODB_URL"])
 db = mongo_client["EduHack"]
-users = db["UserCredentials"]
-messages = db["Messages"]
+users_collection = db["UserCredentials"]
+messages_collection = db["Messages"]
 # To increase lookup performance of the collection
-messages.create_index([("recipient", 1)])
+messages_collection.create_index([("recipient", 1)])
 
 
 """
@@ -44,7 +44,7 @@ login_manager = LoginManager(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    user = users.find_one({"_id": ObjectId(user_id)})
+    user = users_collection.find_one(ObjectId(user_id))
 
     if not user:
         return None
@@ -68,10 +68,24 @@ def is_safe_url(target):
 """
 Adding all the resources/endpoints
 Must be at the end of file to avoid circular imports
+In a file to avoid polluting the scope
 """
-from endpoints import *
+def add_resources():
+    from endpoints import Login
+    api.add_resource(Login, "/auth/login")
 
-api.add_resource(Login, "/auth/login")
-api.add_resource(Logout, "/auth/logout")
-api.add_resource(Signup, "/auth/signup")
-api.add_resource(Dog, "/dog")
+    from endpoints import Logout
+    api.add_resource(Logout, "/auth/logout")
+
+    from endpoints import Signup
+    api.add_resource(Signup, "/auth/signup")
+
+    from endpoints import Index
+    api.add_resource(Index, "/messages")
+
+    from endpoints import Message
+    api.add_resource(Message, "/messages/<id>")
+
+    from endpoints import Dog
+    api.add_resource(Dog, "/dog")
+add_resources()
