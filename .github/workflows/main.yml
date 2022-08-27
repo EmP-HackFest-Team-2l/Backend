@@ -12,7 +12,7 @@ jobs:
         - name: Create .env file
           run: | 
             touch .env
-            echo MONGODB_URL= ${{ secrets.MONGODB_URL }}
+            echo MONGODB_URL=${{ secrets.MONGODB_URL }} >> .env
             cat .env
 
         - name: Setup fly.io command line tool
