@@ -31,7 +31,10 @@ Initialize database
 """
 mongo_client = MongoClient(os.environ["MONGODB_URL"])
 db = mongo_client["EduHack"]
-user_credentials = db["UserCredentials"]
+users = db["UserCredentials"]
+messages = db["Messages"]
+# To increase lookup performance of the collection
+messages.create_index([("recipient", 1)])
 
 
 """
@@ -41,7 +44,7 @@ login_manager = LoginManager(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    user = user_credentials.find_one({"_id": ObjectId(user_id)})
+    user = users.find_one({"_id": ObjectId(user_id)})
 
     if not user:
         return None
