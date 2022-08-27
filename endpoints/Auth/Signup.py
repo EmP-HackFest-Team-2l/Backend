@@ -22,7 +22,7 @@ class Signup(Resource):
         new_user = {
             "username": user.username,
             "password": generate_password_hash(user.password),
-            "account_type": str(user.account_type)
+            "account_type": user.account_type.name
         }
 
         res = users_collection.insert_one(new_user)
