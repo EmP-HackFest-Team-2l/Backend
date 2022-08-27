@@ -16,3 +16,6 @@ user_credentials = db["UserCredentials"]
 
 from endpoints.Login import Login
 api.add_resource(Login, "/login")
+
+from endpoints.Dog import Dog
+api.add_resource(Dog, "/dog")
