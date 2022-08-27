@@ -22,11 +22,15 @@ class User(UserMixin):
 
     def validate(self, validate_account_type=True) -> str:
         if not self.username:
-            return "`username` not set."
+            return "`username` is not set."
+        elif not isinstance(self.username, str):
+            return "`username` is not a string."
         elif not self.password:
-            return "`password` not set."
+            return "`password` is not set."
+        elif not isinstance(self.password, str):
+            return "`password` is not a string."
         elif not self.account_type and validate_account_type:
             if self._account_type_string is None:
-                return "`account_type` not set."
+                return "`account_type` is not set."
             else:
-                return "`account_type` has invalid value."
+                return "`account_type` has an invalid value."
