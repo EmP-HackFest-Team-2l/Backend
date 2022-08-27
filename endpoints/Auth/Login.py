@@ -24,7 +24,7 @@ class Login(Resource):
             raise abort(401, description="Username or password incorrect.")
 
         remember = "remember" in json_data and json_data["remember"]
-        login_user(User(user), remember=remember)
+        login_user(user, remember=remember)
 
         # Validate that the redirect point is a safe place to redirect to
         next = request.args.get("next")
