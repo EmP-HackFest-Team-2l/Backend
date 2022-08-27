@@ -10,6 +10,7 @@ jobs:
           uses: SpicyPizza/create-envfile@v1.3
           with: 
             envkey_MONGODB_URL: ${{ secrets.MONGODB_URL }}
+            directory: "../../"
 
         - name: Checkout repository
           uses: actions/checkout@v3
