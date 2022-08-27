@@ -1,12 +1,12 @@
 from bson.objectid import ObjectId
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from flask_login import LoginManager
 from flask_restful import Api
 import os
 from pymongo import MongoClient
 from urllib.parse import urlparse, urljoin
-
 
 from models import User
 
@@ -23,6 +23,7 @@ app = Flask(__name__)
 app.secret_key = os.environ["API_SECRET"]
 app.app_context().push()
 api = Api(app)
+cors = CORS(app)
 
 
 """
@@ -87,4 +88,11 @@ def add_resources():
 
     from endpoints import Dog
     api.add_resource(Dog, "/dog")
+    
+    from endpoints import Staff
+    api.add_resource(Staff, "/staff")
+
+    from endpoints import User
+    api.add_resource(User, "/user")
+
 add_resources()
