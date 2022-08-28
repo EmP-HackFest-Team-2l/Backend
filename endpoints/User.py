@@ -5,7 +5,7 @@ class User(Resource):
     @login_required
     def get(self):
         return {
-            "id": str(current_user.id),
+            "_id": str(current_user.id),
             "username": current_user.username,
             "account_type": current_user.account_type.name
         }

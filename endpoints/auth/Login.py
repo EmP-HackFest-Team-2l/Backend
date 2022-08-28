@@ -26,12 +26,6 @@ class Login(Resource):
         remember = "remember" in json_data and json_data["remember"]
         login_user(User(db_user), remember=remember)
 
-        # Validate that the redirect point is a safe place to redirect to
-        next = request.args.get("next")
-        if (next):
-            if not is_safe_url(next):
-                return abort(400)
-
-            return redirect(next)
-        else:
-            return successful_response
+        db_user.pop("password")
+        db_user["_id"] = str(db_user["_id"])
+        return db_user, 200

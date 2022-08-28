@@ -26,8 +26,9 @@ class Signup(Resource):
         }
 
         res = users_collection.insert_one(new_user)
-        new_user["_id"] = res.inserted_id
+        new_user["_id"] = str(res.inserted_id)
 
         login_user(User(new_user))
 
-        return successful_response
+        new_user.pop("password")
+        return new_user, 200
