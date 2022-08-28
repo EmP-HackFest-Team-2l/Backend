@@ -72,6 +72,14 @@ def is_safe_url(target):
     return test_url.scheme in ('http', 'https') and \
            ref_url.netloc == test_url.netloc
 
+def string_to_bool(string):
+    if (string == "true"):
+        return True
+    elif (string == "false"):
+        return False
+    else:
+        return None
+
 
 """
 Adding all the resources/endpoints
