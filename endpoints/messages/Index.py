@@ -15,7 +15,7 @@ class Index(Resource):
         # support for pagination could be easily added
         try:
             limit = min(int(request.args.get("limit")), 100)
-        except ValueError:
+        except (ValueError, TypeError):
             limit = 100
 
         db_messages = messages_collection.find(
