@@ -18,9 +18,13 @@ class Index(Resource):
         except ValueError:
             limit = 100
 
+        db_messages = messages_collection.find(
+            {"recipient": current_user.id},
+            {"content": 0},
+            limit=limit)
+
         messages = []
-        for message in messages_collection.find({"recipient": current_user.id},
-                                                limit=limit):
+        for message in db_messages:
             message["_id"] = str(message["_id"])
             messages.append(message)
         

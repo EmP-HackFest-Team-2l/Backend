@@ -26,7 +26,8 @@ class Message(Resource):
         if current_user.account_type != AccountType.STAFF:
             return abort(403, description="You do not have access to this message.")
 
-        message = messages_collection.find_one(ObjectId(id))
+        message = messages_collection.find_one(ObjectId(id),
+                                               {"recipient", 1})
 
         if not message or current_user.id != message["recipient"]:
             return abort(403, description="You do not have access to this message.")

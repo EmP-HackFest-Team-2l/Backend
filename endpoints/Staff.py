@@ -9,12 +9,13 @@ class Staff(Resource):
     def get(self):
         staff_list = users_collection.find({
             "account_type": AccountType.STAFF.name
+        }, {
+            "password": 0
         })
 
         final_list = []
         for staff_member in staff_list:
             staff_member["_id"] = str(staff_member["_id"])
-            staff_member.pop("password")
             final_list.append(staff_member)
 
         return final_list

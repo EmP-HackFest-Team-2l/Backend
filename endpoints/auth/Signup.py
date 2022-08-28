@@ -15,7 +15,9 @@ class Signup(Resource):
         if error:
             return abort(400, description=error)
 
-        db_user = users_collection.find_one({"username": user.username})
+        db_user = users_collection.find_one(
+            {"username": user.username},
+            {"username": 1})
         if db_user:
             return abort(400, description="Username already taken.")
 

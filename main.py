@@ -52,7 +52,7 @@ login_manager = LoginManager(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    user = users_collection.find_one(user_id)
+    user = users_collection.find_one(user_id, {"password": 0})
 
     if not user:
         return None
