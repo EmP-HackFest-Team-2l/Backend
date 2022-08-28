@@ -23,7 +23,7 @@ app = Flask(__name__)
 app.secret_key = os.environ["API_SECRET"]
 app.app_context().push()
 api = Api(app)
-cors = CORS(app)
+cors = CORS(app, supports_credentials=True)
 
 
 """
@@ -40,6 +40,11 @@ messages_collection.create_index([("recipient", 1)])
 """
 Initialize the login manager things
 """
+# These config values let us assign cookies across domains if cors allows
+app.config["REMEMBER_COOKIE_SAMESITE"] = "None"
+app.config["REMEMBER_COOKIE_SECURE"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "None"
+app.config["SESSION_COOKIE_SECURE"] = True
 login_manager = LoginManager(app)
 
 @login_manager.user_loader
