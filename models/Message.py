@@ -3,7 +3,6 @@ from bson.objectid import ObjectId
 
 class Message:
     def __init__(self, message_dict):
-        self.title: str = message_dict.get("title")
         self.content: str = message_dict.get("content")
         self.read: bool = message_dict.get("read")
         self.favorite: bool = message_dict.get("favorite")
@@ -13,12 +12,7 @@ class Message:
         self.send_time: datetime = message_dict.get("send_time") 
     
     def validate(self, validate_send_time=False) -> str:
-        if not self.title:
-            return "`title` is not set."
-        elif not isinstance(self.title, str):
-            return "`title` is not a string."
-
-        elif self.content is not None and not isinstance(self.content, str):
+        if self.content is not None and not isinstance(self.content, str):
             return "`content` is not a string."
 
         elif self.read is None:
