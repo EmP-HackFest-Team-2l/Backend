@@ -4,7 +4,7 @@ from .AccountType import AccountType
 
 class User(UserMixin):
     def __init__(self, user_dict):
-        self.id: str = user_dict.get("_id")
+        self.id: str = str(user_dict.get("_id"))
         self.username: str = user_dict.get("username")
         self.password: str = user_dict.get("password")
 

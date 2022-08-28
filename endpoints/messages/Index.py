@@ -8,6 +8,25 @@ from models import AccountType, Message
 
 class Index(Resource):
     @login_required
+    def get(self):
+        if current_user.account_type != AccountType.STAFF:
+            return abort(403, description="You do not have access to this message.")
+
+        # support for pagination could be easily added
+        try:
+            limit = min(int(request.args.get("limit")), 100)
+        except ValueError:
+            limit = 100
+
+        messages = []
+        for message in messages_collection.find({"recipient": current_user.id},
+                                                limit=limit):
+            message["_id"] = str(message["_id"])
+            messages.append(message)
+        
+        return messages, 200
+
+    @login_required
     def post(self):
         if current_user.account_type != AccountType.STUDENT:
             return abort(403, description="You do not have access to this message.")

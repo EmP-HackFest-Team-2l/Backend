@@ -10,6 +10,9 @@ from urllib.parse import urlparse, urljoin
 
 from models import User
 
+# TODO: change project structure in such a way that allows for certain parts of 
+# the site to be locked behind account types
+
 """
 Load environment variables from .env file
 """
@@ -49,7 +52,7 @@ login_manager = LoginManager(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    user = users_collection.find_one(ObjectId(user_id))
+    user = users_collection.find_one(user_id)
 
     if not user:
         return None

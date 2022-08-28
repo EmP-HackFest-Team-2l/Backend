@@ -14,7 +14,7 @@ class Message(Resource):
 
         message = messages_collection.find_one(ObjectId(id))
 
-        if not message or str(current_user.id) != message["recipient"]:
+        if not message or current_user.id != message["recipient"]:
             return abort(403, description="You do not have access to this message.")
 
         message.pop("_id")
@@ -28,7 +28,7 @@ class Message(Resource):
 
         message = messages_collection.find_one(ObjectId(id))
 
-        if not message or str(current_user.id) != message["recipient"]:
+        if not message or current_user.id != message["recipient"]:
             return abort(403, description="You do not have access to this message.")
 
         favorite = request.args.get("favorite")
