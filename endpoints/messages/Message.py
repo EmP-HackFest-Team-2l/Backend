@@ -8,6 +8,20 @@ from models.AccountType import AccountType
 
 class Message(Resource):
     @login_required
+    def delete(self, id):
+        if current_user.account_type != AccountType.STAFF:
+            return abort(403, description="You do not have access to this message.")
+
+        message = messages_collection.find_one(ObjectId(id))
+
+        if not message or current_user.id != message["recipient"]:
+            return abort(403, description="You do not have access to this message.")
+        
+        messages_collection.delete_one({"_id": ObjectId(id)})
+
+        return successful_response
+
+    @login_required
     def get(self, id):
         if current_user.account_type != AccountType.STAFF:
             return abort(403, description="You do not have access to this message.")
