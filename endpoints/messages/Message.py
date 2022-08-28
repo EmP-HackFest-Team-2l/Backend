@@ -18,7 +18,6 @@ class Message(Resource):
             return abort(403, description="You do not have access to this message.")
 
         message.pop("_id")
-        message["send_time"] = message["send_time"].isoformat()
         return message
 
     @login_required

@@ -1,4 +1,3 @@
-from bson.objectid import ObjectId
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -105,6 +104,9 @@ def add_resources():
     from endpoints import Dog
     api.add_resource(Dog, "/dog")
     
+    from endpoints import GetUser
+    api.add_resource(GetUser, "/user/<id>")
+
     from endpoints import Staff
     api.add_resource(Staff, "/staff")
 
